@@ -145,7 +145,8 @@ var paths = {
             "src/js/views/web.js",
             "src/js/views/jqueryui.js",
             "src/js/views/jquerymobile.js",
-            "src/js/views/bootstrap.js"
+            "src/js/views/bootstrap.js",
+            "src/js/views/bootstrap4.js",
         ],
         web: [
             "build/tmp/templates-web.js",
@@ -169,6 +170,12 @@ var paths = {
             "build/tmp/scripts-core.js",
             "src/js/views/web.js",
             "src/js/views/bootstrap.js"
+        ],
+        bootstrap4: [
+            "build/tmp/templates-bootstrap4.js",
+            "build/tmp/scripts-core.js",
+            "src/js/views/web.js",
+            "src/js/views/bootstrap4.js"
         ]
     },
     templates: {
@@ -201,6 +208,14 @@ var paths = {
             "src/templates/bootstrap-edit/**/*.html",
             "src/templates/bootstrap-create/**/*.html"
         ],
+        bootstrap4: [
+            "src/templates/web-display/**/*.html",
+            "src/templates/web-edit/**/*.html",
+            "src/templates/web-create/**/*.html",
+            "src/templates/bootstrap4-display/**/*.html",
+            "src/templates/bootstrap4-edit/**/*.html",
+            "src/templates/bootstrap4-create/**/*.html"
+        ],
         all: [
             "src/templates/**/*.html"
         ]
@@ -218,6 +233,11 @@ var paths = {
             "src/css/alpaca-core.css",
             "src/css/alpaca-fields.css",
             "src/css/alpaca-bootstrap.css"
+        ],
+        bootstrap4: [
+            "src/css/alpaca-core.css",
+            "src/css/alpaca-fields.css",
+            "src/css/alpaca-bootstrap4.css"
         ],
         jquerymobile: [
             "src/css/alpaca-core.css",
@@ -290,6 +310,18 @@ gulp.task("build-templates", function(cb)
             .pipe(concat('templates-bootstrap.js'))
             .pipe(gulp.dest('build/tmp/')),
 
+        // bootstrap4
+        gulp.src(paths.templates["bootstrap4"])
+            .pipe(handlebars({ handlebars: require('handlebars') }))
+            .pipe(wrap('Handlebars.template(<%= contents %>)'))
+            .pipe(declare({
+                namespace: 'HandlebarsPrecompiled',
+                processName: processName,
+                noRedeclare: true
+            }))
+            .pipe(concat('templates-bootstrap4.js'))
+            .pipe(gulp.dest('build/tmp/')),
+
         // jqueryui
         gulp.src(paths.templates["jqueryui"])
             .pipe(handlebars({ handlebars: require('handlebars') }))
@@ -352,6 +384,25 @@ gulp.task("build-scripts", function(cb) {
             "name": "bootstrap",
             "globalName": "Bootstrap",
             "paramName": "Bootstrap"
+        }],
+        namespace: "Alpaca",
+        exports: "Alpaca",
+        template: wrapper,
+        defaultView: 'bootstrap'
+    };
+    var bootstrap4_wrap = {
+        deps: [{
+            "name": "jquery",
+            "globalName": "jQuery",
+            "paramName": "$"
+        }, {
+            "name": "handlebars",
+            "globalName": "Handlebars",
+            "paramName": "Handlebars"
+        }, {
+            "name": "bootstrap4",
+            "globalName": "Bootstrap4",
+            "paramName": "Bootstrap4"
         }],
         namespace: "Alpaca",
         exports: "Alpaca",
@@ -425,6 +476,15 @@ gulp.task("build-scripts", function(cb) {
                 .pipe(uglify())
                 .pipe(gulp.dest('build/alpaca/bootstrap')),
 
+            // bootstrap4
+            gulp.src(paths.scripts.bootstrap4)
+                .pipe(concat('alpaca.js'))
+                .pipe(wrapUmd(bootstrap_wrap))
+                .pipe(gulp.dest('build/alpaca/bootstrap4'))
+                .pipe(concat('alpaca.min.js'))
+                .pipe(uglify())
+                .pipe(gulp.dest('build/alpaca/bootstrap4')),
+
             // jqueryui
             gulp.src(paths.scripts.jqueryui)
                 .pipe(concat('alpaca.js'))
@@ -476,6 +536,16 @@ gulp.task("build-styles", function(cb) {
                 .pipe(gulp.dest('build/alpaca/bootstrap')),
             gulp.src("src/css/images/**")
                 .pipe(gulp.dest('./build/alpaca/bootstrap/images')),
+
+        // bootstrap4
+        gulp.src(paths.styles.bootstrap4)
+            .pipe(concat('alpaca.css'))
+            .pipe(gulp.dest('build/alpaca/bootstrap4'))
+            .pipe(rename({suffix: ".min"}))
+            .pipe(minifyCss())
+            .pipe(gulp.dest('build/alpaca/bootstrap4')),
+        gulp.src("src/css/images/**")
+            .pipe(gulp.dest('./build/alpaca/bootstrap4/images')),
 
             // jqueryui
             gulp.src(paths.styles.jqueryui)
