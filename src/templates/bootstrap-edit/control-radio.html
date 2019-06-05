@@ -1,0 +1,18 @@
+<script type="text/x-handlebars-template">
+
+    {{#if options.hideNone}}
+    {{else}}
+    <div class="form-check">
+        <input class="form-check-input" id="{{id}}" type="radio" {{#if options.readonly}}readonly="readonly"{{/if}} name="{{name}}" value="" {{#if options._noData}}checked="checked"{{/if}}/>
+        <label class="form-check-label" for="{{id}}">{{{options.noneLabel}}}</label>
+    </div>
+    {{/if}}
+
+    {{#each selectOptions}}
+    <div class="form-check">
+        <input class="form-check-input" id="{{../id}}-{{@index}}" type="radio" {{#if ../options.readonly}}readonly="readonly"{{/if}} name="{{../name}}" value="{{value}}" {{#if selected}}checked="checked"{{/if}}/>
+        <label class="form-check-label" for="{{../id}}-{{@index}}">{{{text}}}</label>
+    </div>
+    {{/each}}
+
+</script>

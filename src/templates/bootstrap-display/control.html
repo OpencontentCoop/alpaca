@@ -9,10 +9,10 @@
         {{#if options.helpers}}
             {{#compare options.helpersPosition "above"}}
                 {{#each options.helpers}}
-                    <p class="help-block {{#if options.helperClass}}{{options.helperClass}}{{/if}}">
+                    <small class="form-text text-muted {{#if options.helperClass}}{{options.helperClass}}{{/if}}">
                         <i class="glyphicon glyphicon-info-sign"></i>
                         {{#showMessage .}}{{/showMessage}}
-                    </p>
+                    </small>
                 {{/each}}
             {{/compare}}
         {{/if}}
@@ -22,10 +22,10 @@
         {{#if options.helpers}}
             {{#compare options.helpersPosition "below"}}
                 {{#each options.helpers}}
-                    <p class="help-block {{#if options.helperClass}}{{options.helperClass}}{{/if}}">
+                    <small class="form-text text-muted {{#if options.helperClass}}{{options.helperClass}}{{/if}}">
                         <i class="glyphicon glyphicon-info-sign"></i>
                         {{#showMessage .}}{{/showMessage}}
-                    </p>
+                    </small>
                 {{/each}}
             {{/compare}}
         {{/if}}
