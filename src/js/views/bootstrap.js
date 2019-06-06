@@ -1,18 +1,18 @@
 /**
- * Twitter Bootstrap Theme ("bootstrap")
+ * Twitter Bootstrap4 Theme ("bootstrap4")
  *
- * Defines the Alpaca theme for Twitter Bootstrap v3.
+ * Defines the Alpaca theme for Twitter Bootstrap v4.
  *
  * The views are:
  *
- *    bootstrap-view
- *    bootstrap-edit
- *    bootstrap-create
+ *    bootstrap4-view
+ *    bootstrap4-edit
+ *    bootstrap4-create
  *
  * This theme can also be selected by specifying the following view:
  *
  *    {
- *       "ui": "bootstrap",
+ *       "ui": "bootstrap4",
  *       "type": "view" | "edit" | "create"
  *    }
  *
@@ -23,8 +23,8 @@
 
     // custom styles
     var styles = {};
-    styles["button"] = "btn btn-default";
-    styles["smallButton"] = "btn btn-default btn-sm";
+    styles["button"] = "btn btn-primary";
+    styles["smallButton"] = "btn btn-primary btn-sm";
     styles["addIcon"] = "glyphicon glyphicon-plus-sign";
     styles["removeIcon"] = "glyphicon glyphicon-minus-sign";
     styles["upIcon"] = "glyphicon glyphicon-chevron-up";
@@ -40,8 +40,13 @@
         var fieldEl = this.getFieldEl();
 
         // required fields get a little star in their label
+        //var label = $(fieldEl).find("label.alpaca-control-label");
+        //$('<span class="alpaca-icon-required glyphicon glyphicon-star"></span>').prependTo(label);
         var label = $(fieldEl).find("label.alpaca-control-label");
-        $('<span class="alpaca-icon-required glyphicon glyphicon-star"></span>').prependTo(label);
+        if ($(label).length > 0)
+        {
+            $(label).append("<span class='alpaca-required-indicator'>* <span class='sr-only'>(required)</span></span>");
+        }
 
     };
     callbacks["invalid"] = function()
@@ -91,19 +96,14 @@
             $(fieldEl).find("input").removeClass("form-control");
         }
 
-        // any checkbox inputs get the "checkbox" class on their checkbox
-        $(fieldEl).find("input[type=checkbox]").parent().parent().addClass("checkbox");
-        // any radio inputs get the "radio" class on their radio
-        $(fieldEl).find("input[type=radio]").parent().parent().addClass("radio");
-
         // if form has "form-inline" class, then radio and checkbox labels get inline classes
         if ($(fieldEl).parents("form").hasClass("form-inline"))
         {
             // checkboxes
-            $(fieldEl).find("input[type=checkbox]").parent().addClass("checkbox-inline");
+            $(fieldEl).find("input[type=checkbox]").parent().addClass("form-check-inline");
 
             // radios
-            $(fieldEl).find("input[type=radio]").parent().addClass("radio-inline");
+            $(fieldEl).find("input[type=radio]").parent().addClass("form-check-inline");
         }
 
         // all control labels get class "control-label"
@@ -188,7 +188,7 @@
     callbacks["tableHeaderRequired"] = function(schema, options, domEl)
     {
         // required fields get a little star in their label
-        $('<span class="alpaca-icon-required glyphicon glyphicon-star"></span>').prependTo(domEl);
+        $("<span class='alpaca-required-indicator'>* <span class='sr-only'>(required)</span></span>").prependTo(domEl);
 
     };
     callbacks["tableHeaderOptional"] = function(schema, options, domEl)
@@ -200,7 +200,7 @@
         "parent": "web-display",
         "type": "display",
         "ui": "bootstrap",
-        "title": "Display View for Bootstrap 3",
+        "title": "Display View for Bootstrap 4",
         "displayReadonly": true,
         "callbacks": callbacks,
         "styles": styles,
@@ -218,7 +218,7 @@
         "parent": "web-edit",
         "type": "edit",
         "ui": "bootstrap",
-        "title": "Edit View for Bootstrap 3",
+        "title": "Edit View for Bootstrap 4",
         "displayReadonly": true,
         "callbacks": callbacks,
         "styles": styles,
@@ -234,7 +234,7 @@
     Alpaca.registerView({
         "id": "bootstrap-create",
         "parent": "bootstrap-edit",
-        "title": "Create View for Bootstrap 3",
+        "title": "Create View for Bootstrap 4",
         "type": "create",
         "displayReadonly": false
     });
