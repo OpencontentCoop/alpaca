@@ -18,29 +18,7 @@
         </legend>
         {{/if}}
 
-        {{#if options.helpers}}
-            {{#compare options.helpersPosition "above"}}
-                {{#each options.helpers}}
-                <small class="alpaca-helper form-text text-muted {{#if options.helperClass}}{{options.helperClass}}{{/if}}">
-                    <i class="alpaca-icon-16 glyphicon glyphicon-info-sign"></i>
-                    {{#showMessage .}}{{/showMessage}}
-                </small>
-                {{/each}}
-            {{/compare}}
-        {{/if}}
-
         {{#container}}{{/container}}
-
-        {{#if options.helpers}}
-            {{#compare options.helpersPosition "below"}}
-                {{#each options.helpers}}
-                <small class="alpaca-helper form-text text-muted {{#if options.helperClass}}{{options.helperClass}}{{/if}}">
-                    <i class="alpaca-icon-16 glyphicon glyphicon-info-sign"></i>
-                    {{#showMessage .}}{{/showMessage}}
-                </small>
-                {{/each}}
-            {{/compare}}
-        {{/if}}
 
     </div>
 

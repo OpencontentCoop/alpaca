@@ -7,28 +7,14 @@
         {{/if}}
 
         {{#if options.helpers}}
-            {{#compare options.helpersPosition "above"}}
-                {{#each options.helpers}}
-                <small class="form-text text-muted {{#if options.helperClass}}{{options.helperClass}}{{/if}}">
-                    <i class="glyphicon glyphicon-info-sign"></i>
-                    {{#showMessage .}}{{/showMessage}}
-                </small>
-                {{/each}}
-            {{/compare}}
+            {{#each options.helpers}}
+                <p class="form-text text-muted {{#if options.helperClass}}{{options.helperClass}}{{/if}}">
+                    {{{.}}}
+                </p>
+            {{/each}}
         {{/if}}
 
         {{#control}}{{/control}}
-
-        {{#if options.helpers}}
-            {{#compare options.helpersPosition "below"}}
-                {{#each options.helpers}}
-                    <small class="form-text text-muted {{#if options.helperClass}}{{options.helperClass}}{{/if}}">
-                        <i class="glyphicon glyphicon-info-sign"></i>
-                        {{#showMessage .}}{{/showMessage}}
-                    </small>
-                {{/each}}
-            {{/compare}}
-        {{/if}}
 
         {{#if options.renderButtons}}
             {{#if options.buttons}}
